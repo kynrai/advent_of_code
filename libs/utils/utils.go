@@ -1,4 +1,4 @@
-package util
+package utils
 
 import (
 	"log"
@@ -16,4 +16,12 @@ func Int(s string) int {
 
 func Abs(i int) int {
 	return int(math.Abs(float64(i)))
+}
+
+func Chars(s string) []string {
+	r := make([]string, len(s))
+	for k, v := range s {
+		r[k] = string(v)
+	}
+	return r
 }

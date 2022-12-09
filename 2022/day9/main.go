@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/kynrai/advent_of_code/libs/read"
-	. "github.com/kynrai/advent_of_code/libs/util"
+	. "github.com/kynrai/advent_of_code/libs/utils"
 )
 
 func main() {

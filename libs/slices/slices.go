@@ -93,3 +93,11 @@ func Reverse[T any](s []T) []T {
 	}
 	return s
 }
+
+func Product[T Number](s []T) T {
+	var prod = s[0]
+	for _, v := range s[1:] {
+		prod *= v
+	}
+	return prod
+}

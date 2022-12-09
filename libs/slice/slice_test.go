@@ -108,3 +108,13 @@ func TestPush(t *testing.T) {
 	s := slice.From(1, 2, 3, 4, 5)
 	assert.Equal(t, slice.From(0, 1, 2, 3, 4, 5), s.Push(0))
 }
+
+func TestMinN(t *testing.T) {
+	s := slice.From(5, 4, 3, 2, 1)
+	assert.Equal(t, []int{1, 2}, s.MinN(2))
+}
+
+func TestMaxN(t *testing.T) {
+	s := slice.From(1, 2, 3, 4, 5)
+	assert.Equal(t, []int{5, 4}, s.MaxN(2))
+}

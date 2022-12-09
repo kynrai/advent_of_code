@@ -26,3 +26,7 @@ func TestMin(t *testing.T) {
 func TestReverse(t *testing.T) {
 	assert.Equal(t, slices.Reverse([]int{3, 2, 1}), []int{1, 2, 3})
 }
+
+func TestProduct(t *testing.T) {
+	assert.Equal(t, slices.Product([]int{3, 2, 1}), 6)
+}

@@ -1,6 +1,8 @@
 package slice
 
 import (
+	"sort"
+
 	"golang.org/x/exp/constraints"
 )
 
@@ -25,6 +27,15 @@ func (s *S[T]) Max() T {
 	return max
 }
 
+func (s *S[T]) MaxN(n int) []T {
+	mins := make([]T, len(*s))
+	copy(mins, *s)
+	sort.Slice(mins, func(i, j int) bool {
+		return mins[i] > mins[j]
+	})
+	return mins[:n]
+}
+
 func (s *S[T]) Min() T {
 	var min T
 	if len(*s) > 0 {
@@ -36,6 +47,15 @@ func (s *S[T]) Min() T {
 		}
 	}
 	return min
+}
+
+func (s *S[T]) MinN(n int) *S[T] {
+	mins := make([]T, len(*s))
+	copy(mins, *s)
+	sort.Slice(mins, func(i, j int) bool {
+		return mins[i] < mins[j]
+	})
+	return From(mins[:n]...)
 }
 
 func (s *S[T]) Sum() T {
@@ -73,7 +93,7 @@ func (s *S[T]) Push(t T) *S[T] {
 	return s1
 }
 
-func (s *S[T]) ToSlice(t T) []T {
+func (s *S[T]) Slice() []T {
 	s1 := make([]T, len(*s))
 	copy(s1, *s)
 	return s1

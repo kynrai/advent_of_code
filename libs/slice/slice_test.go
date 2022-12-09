@@ -118,3 +118,9 @@ func TestMaxN(t *testing.T) {
 	s := slice.From(1, 2, 3, 4, 5)
 	assert.Equal(t, []int{5, 4}, s.MaxN(2))
 }
+
+func TestContains(t *testing.T) {
+	s := slice.From(1, 2, 3, 4, 5)
+	assert.Equal(t, true, s.Contains(2))
+	assert.Equal(t, false, s.Contains(6))
+}

@@ -98,3 +98,12 @@ func (s *S[T]) Slice() []T {
 	copy(s1, *s)
 	return s1
 }
+
+func (s *S[T]) Contains(t T) bool {
+	for i := 0; i < len(*s); i++ {
+		if (*s)[i] == t {
+			return true
+		}
+	}
+	return false
+}

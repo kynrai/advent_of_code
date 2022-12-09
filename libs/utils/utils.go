@@ -25,3 +25,12 @@ func Chars(s string) []string {
 	}
 	return r
 }
+
+func AsInts(s string) []int {
+	ints := make([]int, len(s))
+	for k, v := range s {
+		i, _ := strconv.Atoi(string(v))
+		ints[k] = i
+	}
+	return ints
+}

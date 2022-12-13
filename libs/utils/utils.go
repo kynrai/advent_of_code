@@ -34,3 +34,29 @@ func AsInts(s string) []int {
 	}
 	return ints
 }
+
+func Max(ints ...int) int {
+	if len(ints) == 1 {
+		return ints[0]
+	}
+	max := ints[0]
+	for _, i := range ints {
+		if i > max {
+			max = i
+		}
+	}
+	return max
+}
+
+func Min(ints ...int) int {
+	if len(ints) == 1 {
+		return ints[0]
+	}
+	min := ints[0]
+	for _, i := range ints {
+		if i < min {
+			min = i
+		}
+	}
+	return min
+}

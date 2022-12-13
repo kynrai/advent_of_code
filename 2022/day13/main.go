@@ -8,6 +8,7 @@ import (
 
 	"github.com/kynrai/advent_of_code/libs/read"
 	"github.com/kynrai/advent_of_code/libs/slice"
+	"github.com/kynrai/advent_of_code/libs/slices"
 	. "github.com/kynrai/advent_of_code/libs/utils"
 )
 
@@ -21,7 +22,6 @@ func isKind(v any, k reflect.Kind) bool {
 }
 
 func inOrder(l, r any) (bool, bool) {
-	// fmt.Printf("L %t, R %t\n", l, r)
 	if isKind(l, reflect.Float64) && isKind(r, reflect.Float64) {
 		lf, _ := l.(float64)
 		rf, _ := r.(float64)
@@ -75,7 +75,6 @@ func one(path string) {
 	for idx, pair := range input {
 		leftLists, rightLists := strToList(pair[0]), strToList(pair[1])
 		order, _ := inOrder(leftLists, rightLists)
-		// fmt.Println(leftLists, rightLists, order)
 		if order {
 			orderIdx = append(orderIdx, idx+1)
 			continue
@@ -100,7 +99,12 @@ func two(path string) {
 		ord, _ := inOrder(entries[i], entries[j])
 		return ord
 	})
+	idx := []int{}
 	for k, v := range entries {
-		fmt.Println(k+1, v)
+		switch fmt.Sprintf("%v", v) {
+		case "[[2]]", "[[6]]":
+			idx = append(idx, k+1)
+		}
 	}
+	fmt.Println(slices.Product(idx))
 }

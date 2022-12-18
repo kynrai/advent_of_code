@@ -30,3 +30,25 @@ func TestReverse(t *testing.T) {
 func TestProduct(t *testing.T) {
 	assert.Equal(t, slices.Product([]int{3, 2, 1}), 6)
 }
+
+func TestUnion(t *testing.T) {
+	assert.Equal(t, []int{1, 2, 4, 5, 6, 7}, slices.Union([]int{2, 1}, []int{5, 7}, []int{4, 6}))
+}
+
+func TestDelete(t *testing.T) {
+	a := []int{1, 2, 3, 4, 5, 6, 7}
+	b := []int{1, 2, 4, 5, 6, 7}
+	assert.Equal(t, b, slices.Delete(a, 2))
+}
+
+func TestDeleteElement(t *testing.T) {
+	a := []int{1, 2, 3, 4, 5, 6, 7}
+	b := []int{1, 2, 4, 5, 6, 7}
+	assert.Equal(t, b, slices.DeleteElement(a, 3))
+}
+
+func TestDeleteElementAll(t *testing.T) {
+	a := []int{1, 2, 3, 4, 3, 6, 3}
+	b := []int{1, 2, 4, 6}
+	assert.Equal(t, b, slices.DeleteElement(a, 3))
+}

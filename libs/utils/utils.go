@@ -3,15 +3,34 @@ package utils
 import (
 	"log"
 	"math"
+	"regexp"
+	"sort"
 	"strconv"
+
+	"golang.org/x/exp/constraints"
 )
 
 func Int(s string) int {
 	i, err := strconv.Atoi(s)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(s, err)
 	}
 	return i
+}
+
+func Ints(s string, as ...*int) {
+	matches := regexp.MustCompile(`-?\d+`).FindAllString(s, -1)
+	for k, v := range as {
+		*v = Int(matches[k])
+	}
+}
+
+func Range(s, e int) []int {
+	res := make([]int, 0, e-s+1)
+	for i := s; i <= e; i++ {
+		res = append(res, i)
+	}
+	return res
 }
 
 func Abs(i int) int {
@@ -59,4 +78,23 @@ func Min(ints ...int) int {
 		}
 	}
 	return min
+}
+
+func Keys[T constraints.Ordered, U any](m map[T]U) []T {
+	keys := make([]T, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Slice(keys, func(i, j int) bool {
+		return keys[i] < keys[j]
+	})
+	return keys
+}
+
+func Values[T comparable, U any](m map[T]U) []U {
+	values := make([]U, 0, len(m))
+	for _, v := range m {
+		values = append(values, v)
+	}
+	return values
 }

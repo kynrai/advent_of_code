@@ -87,6 +87,23 @@ func Intersect[T comparable](as ...[]T) []T {
 	return res
 }
 
+func Union[T constraints.Ordered](as ...[]T) []T {
+	set := make(map[T]struct{})
+	for _, a := range as {
+		for _, r := range a {
+			set[r] = struct{}{}
+		}
+	}
+	res := make([]T, 0, len(set))
+	for k := range set {
+		res = append(res, k)
+	}
+	sort.Slice(res, func(i, j int) bool {
+		return res[i] < res[j]
+	})
+	return res
+}
+
 func Reverse[T any](s []T) []T {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		s[i], s[j] = s[j], s[i]
@@ -100,4 +117,39 @@ func Product[T Number](s []T) T {
 		prod *= v
 	}
 	return prod
+}
+
+func Find[T comparable](a []T, e T) int {
+	for i := range a {
+		if a[i] == e {
+			return i
+		}
+	}
+	return -1
+}
+
+func Contains[T comparable](a []T, e T) bool {
+	for i := range a {
+		if a[i] == e {
+			return true
+		}
+	}
+	return false
+}
+
+func Delete[T any](a []T, i int) []T {
+	var n T
+	copy(a[i:], a[i+1:])
+	a[len(a)-1] = n // or the zero value of T
+	return a[:len(a)-1]
+}
+
+func DeleteElement[T comparable](a []T, e T) []T {
+	new := []T{}
+	for _, v := range a {
+		if v != e {
+			new = append(new, v)
+		}
+	}
+	return new
 }

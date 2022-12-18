@@ -6,8 +6,8 @@ func (q *Queue[T]) IsEmpty() bool {
 	return len(*q) == 0
 }
 
-func (q *Queue[T]) Push(str T) {
-	*q = append(*q, str)
+func (q *Queue[T]) Push(e T) {
+	*q = append(*q, e)
 }
 
 func (q *Queue[T]) Pop() (T, bool) {

@@ -52,3 +52,9 @@ func TestDeleteElementAll(t *testing.T) {
 	b := []int{1, 2, 4, 6}
 	assert.Equal(t, b, slices.DeleteElement(a, 3))
 }
+
+func TestPopLeft(t *testing.T) {
+	s := []int{1, 2, 3, 4, 5}
+	assert.Equal(t, 1, slices.PopLeft(&s))
+	assert.Equal(t, []int{2, 3, 4, 5}, s)
+}

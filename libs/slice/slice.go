@@ -1,10 +1,15 @@
 package slice
 
 import (
+	"math"
 	"sort"
 
 	"golang.org/x/exp/constraints"
 )
+
+func Abs(i int) int {
+	return int(math.Abs(float64(i)))
+}
 
 type S[T constraints.Ordered] []T
 
@@ -87,7 +92,17 @@ func (s *S[T]) Pop() T {
 	return element
 }
 
-func (s *S[T]) Push(t T) *S[T] {
+func (s *S[T]) PopLeft() T {
+	var t T
+	if len(*s) == 0 {
+		return t
+	}
+	element := (*s)[0]
+	*s = (*s)[1:]
+	return element
+}
+
+func (s *S[T]) PushLeft(t T) *S[T] {
 	s1 := From(t)
 	*s1 = append(*s1, *s...)
 	return s1
@@ -106,4 +121,31 @@ func (s *S[T]) Contains(t T) bool {
 		}
 	}
 	return false
+}
+
+func (s *S[T]) Rotate(i int) *S[T] {
+	if len(*s) == 0 {
+		return s
+	}
+	r := mod(i, len(*s))
+	if r > 0 {
+		for i := 0; i < r; i++ {
+			last := (*s)[len(*s)-1]
+			cutLast := (*s)[:len(*s)-1]
+			*s = append([]T{last}, cutLast...)
+		}
+		return s
+	}
+	if r < 0 {
+		for i := 0; i < r; i++ {
+			first := (*s)[0]
+			cutFirst := (*s)[1:]
+			*s = append(cutFirst, first)
+		}
+	}
+	return s
+}
+
+func mod(a, b int) int {
+	return (a%b + b) % b
 }

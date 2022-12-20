@@ -153,3 +153,44 @@ func DeleteElement[T comparable](a []T, e T) []T {
 	}
 	return new
 }
+
+func Rotate[T any](s []T, i int) []T {
+	if len(s) == 0 {
+		return s
+	}
+	r := mod(i, len(s))
+	if r > 0 {
+		for i := 0; i < r; i++ {
+			last := (s)[len(s)-1]
+			cutLast := (s)[:len(s)-1]
+			s = append([]T{last}, cutLast...)
+		}
+		return s
+	}
+	if r < 0 {
+		for i := 0; i < r; i++ {
+			first := (s)[0]
+			cutFirst := (s)[1:]
+			s = append(cutFirst, first)
+		}
+	}
+	return s
+}
+
+func mod(a, b int) int {
+	return (a%b + b) % b
+}
+
+func PopLeft[T any](s *[]T) T {
+	var t T
+	if len(*s) == 0 {
+		return t
+	}
+	element := (*s)[0]
+	*s = (*s)[1:]
+	return element
+}
+
+func PushLeft[T any](s []T, t T) []T {
+	return append([]T{t}, s...)
+}

@@ -104,9 +104,15 @@ func TestPop(t *testing.T) {
 	assert.Equal(t, 0, s.Pop())
 }
 
-func TestPush(t *testing.T) {
+func TestPopLeft(t *testing.T) {
 	s := slice.From(1, 2, 3, 4, 5)
-	assert.Equal(t, slice.From(0, 1, 2, 3, 4, 5), s.Push(0))
+	assert.Equal(t, 1, s.PopLeft())
+	assert.Equal(t, slice.From(2, 3, 4, 5), s)
+}
+
+func TestPushLeft(t *testing.T) {
+	s := slice.From(1, 2, 3, 4, 5)
+	assert.Equal(t, slice.From(0, 1, 2, 3, 4, 5), s.PushLeft(0))
 }
 
 func TestMinN(t *testing.T) {
@@ -123,4 +129,14 @@ func TestContains(t *testing.T) {
 	s := slice.From(1, 2, 3, 4, 5)
 	assert.Equal(t, true, s.Contains(2))
 	assert.Equal(t, false, s.Contains(6))
+}
+
+func TestRotate(t *testing.T) {
+	assert.Equal(t, []int{4, 5, 1, 2, 3}, slice.From(1, 2, 3, 4, 5).Rotate(2).Slice())
+	assert.Equal(t, []int{1, 2, 3, 4, 5}, slice.From(1, 2, 3, 4, 5).Rotate(5).Slice())
+	assert.Equal(t, []int{5, 1, 2, 3, 4}, slice.From(1, 2, 3, 4, 5).Rotate(6).Slice())
+	assert.Equal(t, []int{4, 5, 1, 2, 3}, slice.From(1, 2, 3, 4, 5).Rotate(12).Slice())
+	assert.Equal(t, []int{2, 3, 4, 5, 1}, slice.From(1, 2, 3, 4, 5).Rotate(-1).Slice())
+	assert.Equal(t, []int{3, 4, 5, 1, 2}, slice.From(1, 2, 3, 4, 5).Rotate(-2).Slice())
+	assert.Equal(t, []int{2, 3, 4, 5, 1}, slice.From(1, 2, 3, 4, 5).Rotate(-6).Slice())
 }
